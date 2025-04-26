@@ -1,19 +1,20 @@
 <?php
-    include('database.php');
 
+// Include the database connection file
+include('database.php');
 
+// Prepare the SQL select statement
+$sql = "SELECT * FROM TB_USUARIO";
+$stmt = $con->prepare($sql);
 
-    //executar comando sql(select)
+// Execute the statement
+$stmt->execute();
 
-    $sql = " SELECT * FROM TB_USUARIO ":
+// Fetch the first row
+$linha = $stmt->fetch(PDO::FETCH_ASSOC);
+print_r($linha);
 
-    //$result = $con->query($sql);
-    foreach( $con->query($sql) as $value){
-      echo $value["ID_US"] ."  " . $value[1]."  " .$value[2] ."<br>";
-
-    }
-
-    //var_dump($result);
-
-
-?>
+// Fetch all rows and display them
+while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    echo $linha["ID_US"] . " " . $linha["NOME_US"] . " " . $linha["EMAIL_US"] . "<br>";
+}
